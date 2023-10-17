@@ -1,0 +1,113 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {"url": "https://raw.githubusercontent.com/teck-san/assignment2/main/data/Energy-clean-merged.csv"},
+    "title":"Propotion of Electricity Generated from Different Sources",
+    "width": 400,
+    "height":400,
+    "params": [
+      {
+        "name": "Continent_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            "Africa",
+            "Asia",
+            "Americas",
+            "Europe",
+            "Oceania"
+          ],
+          "labels": [
+            "Africa",
+            "Asia",
+            "Americas",
+            "Europe",
+            "Oceania"
+          ],
+          "name": "Continent Selection: "
+        }
+      },{
+        "name": "highlight",
+        "select": {"type": "point", "on": "mouseover"}
+      }],
+      
+        "transform": [
+          {
+            "fold": [
+              "Electricity from fossil fuels (TWh)",
+              "Electricity from renewables (TWh)",
+              "Electricity from nuclear (TWh)"
+            ],
+            "as": ["EnergyType", "EnergyVal"]
+          },
+          {"filter": "datum.Year == 2020"},
+          {
+            "filter": "Continent_selection == null || datum.Region == Continent_selection"
+          },
+          {
+            "joinaggregate": [{"op": "sum", "field": "EnergyVal", "as": "TotalEnergy"}]
+          },
+          {
+            "joinaggregate": [
+              {"op": "sum", "field": "EnergyVal", "as": "TotalEnergyType"}
+            ],
+            "groupby": ["EnergyType"]
+          },
+          {
+            "calculate": "round(datum.TotalEnergyType/datum.TotalEnergy * 100)",
+            "as": "PercentOfTotal"
+          },
+          {
+            "aggregate": [{"op": "min", "field": "PercentOfTotal", "as": "P"}],
+            "groupby": ["EnergyType"]
+          },
+          {"calculate": "format(datum.P/100, '.0%')", "as": "Tooltip_p"},
+          {"calculate": "sequence(1,datum.P+1)", "as": "S"},
+          {"flatten": ["S"]},
+          {
+            "window": [{"op": "row_number", "as": "id"}],
+            "sort": [{"field": "EnergyType", "order": "descending"}]
+          },
+          {"calculate": "ceil (datum.id / 10)", "as": "row"},
+          {"calculate": "datum.id - datum.row * 10", "as": "col"}
+        ],
+      
+        "mark": {
+          "type": "circle",
+          "filled": true,
+          "tooltip": true
+        },
+      
+        "encoding": {
+          "x": {"field": "col", "type": "ordinal", "axis": null},
+          "y": {"field": "row", "type": "ordinal", "axis": null, "sort": "-y"},
+          "color": {
+            "field": "EnergyType",
+            "type": "nominal",
+            "scale": {"domain": ["Electricity from fossil fuels (TWh)", "Electricity from renewables (TWh)", "Electricity from nuclear (TWh)"],
+            "range": ["#5A5A5A", "#56B4E9", "#A9DFBF"]},
+            "legend": {
+              "title":"Types of Energy",
+              "orient": "right",
+              "offset": 10,
+              "labelOffset": 3,
+              "titlePadding": 5,
+              "titleFontSize": 20
+            }
+          },"opacity": {
+            "condition": [{
+              "param": "highlight",
+              
+              "value": 1
+            }],
+            "value": 0.3
+          },
+          "size": {"value": 241},
+          "tooltip": [{"field": "Tooltip_p", "type": "nominal","title":"Energy Generated"}]
+        },
+        "config": {  
+          "view": {
+            "stroke": "transparent"
+            
+          },"padding":{"left": 10, "top": 20, "right": 10, "bottom": 20},
+          "background": "rgb(243, 241, 241)"}
+      }

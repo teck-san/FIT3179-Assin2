@@ -1,0 +1,69 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Energy Consumption Radial Chart",
+    "title":"Energy Consumption Per capita",
+    "height":400,
+    "width":"container",
+    "data": {"url": "https://raw.githubusercontent.com/teck-san/assignment2/main/data/Energy-clean-merged.csv"},
+    "params": [
+      {
+        "name": "year_selection",
+        "value": 2000,
+        "bind": {
+          "input": "range",
+          "min": 2000,
+          "max": 2020,
+          "step": 1,
+          "name": "Year: "
+        }}
+      ],
+    "transform": [{"filter": "datum.Year == year_selection"},{
+        "aggregate": [{
+         "op": "sum",
+         "field": "Primary energy consumption per capita (kWh/person)",
+         "as": "energy_consumption_per_capita"
+        }],
+        "groupby": ["Region"]
+        
+      }],
+    "layer": [{
+      "mark": {"type": "arc", "innerRadius": 0, "stroke": "#fff"},
+      "params": [{
+        "name": "highlight",
+        "select": {"type": "point", "on": "mouseover"}
+      }]
+    },{
+      "mark": {"type": "text", "radiusOffset": 10},
+      "encoding": {
+        "text": {"field": "Region", "type": "nominal"},"color": {"value": "black"}
+      }
+    }],
+    "encoding": {
+      "theta": {"field": "energy_consumption_per_capita", "type": "quantitative", "stack": true},
+      "radius": {"field": "energy_consumption_per_capita", "scale": {"type": "sqrt", "zero": true, "rangeMin": 20}},
+      "color": {
+        "field": "Region", 
+      "type": "nominal", 
+      "legend": null,
+      "scale":{
+        "domain": ["Africa", "Asia", "Americas","Europe","Oceania"],
+        "range": ["#ff7f00", "#DAA520", "#984ea3", "#a65628", "#377eb8"]}
+      },"opacity": {
+        "condition": [{
+          "param": "highlight",
+          
+          "value": 1
+        }],
+        "value": 0.3
+      },
+      "tooltip":[{"field":"Region","type":"nominal","title":"Region"},{"field":"energy_consumption_per_capita","title":"Energy Consumption per Capita (kWh/person)","format": ".2f"}]
+    },
+    "config": {  
+      "view": {
+        "stroke": "transparent"
+        
+      },"padding":{"left": 50, "top": 50, "right": 50, "bottom": 50},
+      "background": "rgb(243, 241, 241)"}
+  }
+
+  

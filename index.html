@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+  
+  <!-- Import pure.css -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- CSS file -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+  <link rel="stylesheet" type="text/css" href="css/font.css" media="all">
+
+  <!-- font file -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2&display=swap" rel="stylesheet">
+  
+</head>
+<body>
+  <div class="section-title">
+    <div class="title-h1">
+      <h1>
+        🌍 Global <span style="color: rgb(199, 199, 3);">Electricity</span> at a Glance 🌍
+      </h1>
+    </div>
+    <div class="title-p">
+      <p>
+        This visualization provides an insights about the information of electricity around the world. It includes accessibility of electricity, resources used to generate electricity, impact of using different resources to generate electricity, electricity usage evolution of electricity generation and the location of nuclear plant.
+      </p>
+    </div>
+  </div>
+  
+  <div class="page">
+    <div class = "section-wrapper">
+      <div class = "section-wrapper-title">
+        <h1>⚡ How accessible is electricity ? ⚡</h1>
+      </div>
+      <div class="section section-1">
+        <div class="section-container section-sub-title">
+          <div class="section-item-10">
+            <h2 style="text-align: left;">Electricity Accessibility</h2>
+            <p style="text-align: left; width:68%"> In general, overall percentage of population with access to electricity improved over time. Population getting access to electricity increases throughout times. <span style="font-weight: bolder;">Liberia</span> had the <span style="font-weight: bolder; color: red;">lowest</span> percentage of its population with access to electricity up to the year 2011. <span style="font-weight: bolder;">Liberia</span> was <span style="font-weight: bolder; color: red;">overtaken</span> by <span style="font-weight: bolder;">Burundi</span> in year 2012, which in turn was <span style="font-weight: bolder; color: red;">surpassed</span> by <span style="font-weight: bolder;">South Sudan</span> in 2013.</p>
+          </div>
+        </div>
+      
+
+    
+        <div class="section-container" style="text-align: center;">
+          <div class="section-item-10">
+            <div id="symbol_map"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class = "section-wrapper">
+      <div class = "section-wrapper-title">
+        <h1>⚡Where do your electric comes from?⚡</h1>
+      </div>
+
+      <div class="section section-2">
+        
+          <div class="section-container" style="width:100%; align-items: center; justify-content: center;">
+            <div class="section-item-5">
+              <div class = "text-container">
+                <h2 style="text-align: left;">Propotion of Electricity Sources in 2020</h2>
+                <!--<p style="text-align: left;">In <span style="font-weight: bolder;">Africa</span>, more than 77% of electricity are generated from fossil fuel, <span style="font-weight: bolder; color: red;">leaving only</span> 22% electricity from <span style="font-weight: bolder; color: #0fc708;">clean energy sources</span>, such as nuclear and renewable. In <span style="font-weight: bolder;">Asia</span>, a mere 28% of electricity comes from <span style="font-weight: bolder; color: #0fc708;">clean energy sources</span>, while fossil fuels <span style="font-weight: bolder; color: red;">dominate</span> with 72%. In the <span style="font-weight: bolder;">Americas</span>, <span style="font-weight: bolder; color: red;">majority</span> of electricity are generated from fossil fuel. In contrast, <span style="font-weight: bolder;">Europe</span> relies on <span style="font-weight: bolder; color: #0fc708;">clean energy sources</span>, which contribute to 64% of its electricity. In <span style="font-weight: bolder;">Oceania</span>, there is no nuclear sources and 33% of electricity are contributed by <span style="font-weight: bolder; color: #0fc708;">renewables</span> and fossil fuels provide the remaining 67% of the electricity."</p> -->
+                <p style="text-align: left;">In 2020, except for <span style="font-weight: bolder;">Europe</span>, most regions are still <span style="font-weight: bolder; color: red;">heavily depended on non-clean energy</span>, with fossil fuel accouting for more than 50% of electricity generation. Also in <span style="font-weight: bolder;">Oceania</span>, they do not have any electricity generated from Nuclear.</p>
+              </div>
+            </div>
+
+            <div class="section-item-5">
+              <div id="symbol_map2"></div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+
+    <div class = "section-wrapper">
+      <div class = "section-wrapper-title">
+        <h1>☁️ Electricity vs CO2 Emissions ☁️</h1>
+      </div>
+
+      <div class="section section-3">
+    
+          <div class="section-container" style="width:100%; text-align: center; align-items: center;">
+
+            <div class="section-item-5" >
+              <div id="symbol_map3"></div>
+            </div>
+
+            <div class="section-item-5">
+              <div class = "text-container">
+                <h2 style="text-align: left;">Electricity generation affection on CO2 Emissions</h2>
+                <!-- <p style="text-align: left;">There is a <span style="font-weight: bolder; color: #0fc708;">positive linear relationship</span> between electricity generated from fossil fuels and CO2 emissions: as electricity generation from fossil fuels <span style="font-weight: bolder; color: #0fc708;">increases</span>, CO2 emissions <span style="font-weight: bolder; color: #0fc708;">increase</span>. Conversely, there is a <span style="font-weight: bolder; color: red;">negative linear relationship</span> between percentage of low-carbon electricity and both CO2 eimissions and electricity generated from fossil fuel. In the chart, the size of each data point represents the percentage of low-carbon electricity, the points at top right are <span style="font-weight: bolder; ">smaller</span> compared to those at bottom left, indicating that an <span style="font-weight: bolder; color: #0fc708;">increase</span> in percentage of low-carbon electricity correlated with reduced CO2 emissions and fossil fuel electricity generation.</p> -->
+                <p style="text-align: left;">Examining the <span style="font-weight: bolder; font-size: 20px;">world's major economies</span>, such as China, United States, India and Japan, we will notice that, over the years, both China and India have seen an significant <span style="font-weight: bolder; color: red;">increase</span> in electricity generated from fossil fuel which led to a <span style="font-weight: bolder; color: red;">rise</span> in their CO2 emissions</p>
+                <p style="text-align: left; font-size: 12px;">* Move and zoom in the chart to look at smaller and overlapped points * </p>
+              </div>
+            </div>
+
+
+          </div>
+  
+      </div>
+    </div>
+
+    <div class = "section-wrapper">
+      <div class = "section-wrapper-title">
+        <h1>⚡Electricity Usage⚡</h1>
+      </div>
+
+      <div class="section section-4">
+          <div class="section-container" style="width:100%; text-align: center; align-items: center;">
+            
+            <div class="section-item-5" >
+              <div class = "text-container">
+                <h2 style="text-align: left;">Energy Consumption per capita on different region</h2>
+                <p style="text-align: left;">Over the years, <span style="font-weight: bolder;">Asia</span> increases on energy consumption per capita which eventually <span style="font-weight: bolder; color: rgb(76, 189, 11);">surpassed</span> the <span style="font-weight: bolder;">Europe</span> usage in 2020. Similarly, <span style="font-weight: bolder;">Africa</span> also experienced a rise in energy consumption per capita, <span style="font-weight: bolder; color: rgb(76, 189, 11);">overtaking</span> <span style="font-weight: bolder;">Oceania</span> in 2001.</p>  
+              </div>
+            </div>
+
+
+            <div class="section-item-5" >
+              <div id="symbol_map4"></div>
+            </div>
+
+            
+
+          </div>
+      </div>
+    </div>
+
+    <div class = "section-wrapper">
+      <div class = "section-wrapper-title">
+        <h1>⏳Evolution of Electricity Generation by Source⏳</h1>
+      </div>
+      
+      <div class="section section-5">
+        <div class="section-container" style="width:100%; text-align: center; align-items: center;">
+
+          <div class="section-item-5">
+            <div id="symbol_map5"></div>
+          </div>
+
+          <div class="section-item-5">
+            <div class = "text-container">
+              <h2 style="text-align: left;"> How electricity generation changes over time? </h2>
+              <p style="text-align: left;"> From 2000 to 2020, the increase in electricity generation in <span style="font-weight: bolder;">Asia</span> was greater than any other region in average. Meanwhile, <span style="font-weight: bolder;">Europe</span> saw a <span style="font-weight: bolder; color: red;">decline</span> in electricity produced from both fossil fuels and nuclear sources and witnessed an <span style="font-weight: bolder; color: rgb(76, 189, 11);">increase</span> in electricity generation from <span style="font-weight: bolder; color: rgb(76, 189, 11);">renewable resources</span>. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class = "section-wrapper">
+      <div class = "section-wrapper-title">
+        <h1>☢️ Nuclear Plant ☢️</h1>
+      </div>
+
+      <div class="section section-6">
+        <div class="section-container section-sub-title">
+          <div class="section-item-10 word-style">
+            <h2 style="text-align: left;"> Nuclear Plant in the World </h2>
+            <p style="text-align: left; width: 60%;"> Nuclear power plants are <span style="font-weight: bolder; color: rgb(76, 189, 11);">efficient</span> in producing electricity with <span style="font-weight: bolder; color: rgb(76, 189, 11);">minimal carbon emissions</span>, thereby aiding in the reduction of our carbon footprint and in combating climate change. The nuclear plant with the <span style="font-weight: bolder; color: rgb(76, 189, 11);">highest</span> capacity is the one in <span style="font-weight: bolder;">Japan</span> with a total capacity of 8,212 MW</p>
+          </div>
+        </div>
+
+      
+        <div class="section-container" style="text-align: center;">
+          <div class="section-item-10">
+            <div id="symbol_map6"></div>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+    
+  <div class="footer">
+
+    <p> Visualization by:</p>
+    <p> Looi Teck San</p>
+
+  </div>
+    
+    
+  </div>
+<script type="text/javascript">
+
+  var spec1 = "javascript/energy_map.vg.json";
+  var spec2 = "javascript/energy_region_waffle.vg.json";
+  var spec3 = "javascript/energy_circle.vg.json";
+  var spec4 = "javascript/energy_radial.vg.json";
+  var spec5 = "javascript/energy_slope.vg.json";
+  var spec6 = "javascript/energy_symmap.vg.json";
+
+  vegaEmbed('#symbol_map', spec1, { "actions": false }).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#symbol_map2', spec2, { "actions": false }).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#symbol_map3', spec3, { "actions": false }).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#symbol_map4', spec4, { "actions": false }).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#symbol_map5', spec5, { "actions": false }).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#symbol_map6', spec6, { "actions": false }).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+</script>
+
+</body>
+</html>

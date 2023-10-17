@@ -1,0 +1,26 @@
+.title-h1 h1{
+    font-size: 60px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+h1{
+    font-family: sans-serif;
+}
+
+h2{
+    font-family: sans-serif;
+}
+
+a{
+    font-family: sans-serif;
+    font-size: 1em;
+}
+
+p{
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.footer p{
+    color: rgb(120, 120, 120);
+}
