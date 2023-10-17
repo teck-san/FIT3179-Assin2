@@ -106,11 +106,7 @@
         "url": "https://raw.githubusercontent.com/teck-san/assignment2/main/javascript/worldmap.topojson",
         "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
       },
-      "mark": {"type": "geoshape", "fill": null, "stroke": "white"},
-      "params": [{
-        "name": "highlight",
-        "select": {"type": "point", "on": "mouseover"}
-      }]
+      "mark": {"type": "geoshape", "fill": null, "stroke": "white"}
     },
 
     
@@ -155,13 +151,6 @@
             "range": ["#99CCFF", "#000033"]  
           }
 
-        },"opacity": {
-          "condition": [{
-            "param": "highlight",
-            
-            "value": 1
-          }],
-          "value": 0.1
         },
         "tooltip": [
           {"field": "Country", "type": "nominal", "title": "Country"},
